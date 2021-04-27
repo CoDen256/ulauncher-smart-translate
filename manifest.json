@@ -1,7 +1,7 @@
 {
   "required_api_version": "^2.0.0",
-  "name": "Window Launcher",
-  "description": "The extension switches to current window OR launches a new instance of an app",
+  "name": "Ulauncher Smart Translate",
+  "description": "The extension translates given queries",
   "developer_name": "Denys Chernyshov",
   "icon": "images/icon.png",
   "options": {
@@ -9,11 +9,11 @@
   },
   "preferences": [
     {
-      "id": "wlauncher",
+      "id": "multitran_de_ru",
       "type": "keyword",
-      "name": "Launch an app",
-      "description": "Activates a window or launches a new instance",
-      "default_value": "wl"
+      "name": "Translate a phrase",
+      "description": "Translates the given query using multitran.com",
+      "default_value": "mdr"
     }
   ]
 }

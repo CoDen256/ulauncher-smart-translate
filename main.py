@@ -10,6 +10,9 @@ import logging
 from ulauncher.utils.desktop.reader import find_apps_cached
 
 logger = logging.getLogger(__name__)
+
+
+
 class DemoExtension(Extension):
 
     def __init__(self):
@@ -24,17 +27,18 @@ class DemoExtension(Extension):
 class KeywordQueryEventListener(EventListener):
 
     def on_event(self, event, extension):
-        query = event.get_argument()
-        logger.info(query)
-        logger.info(list(AppDb.get_instance().get_records()))
-        result_list = AppDb.get_instance().find(query)
-        logger.info(result_list)
         items = []
-        for app_result_item in result_list:
-            items.append(ExtensionResultItem(icon='images/icon.png', # not PixBuf, okay?
-                                                name=app_result_item.get_name(),
-                                                description=app_result_item.get_description(None),
-                                                on_enter=HideWindowAction()))
+        query = event.get_argument()
+
+        keyword = event.get_keyword()
+        # Find the keyword id using the keyword (since the keyword can be changed by users)
+        keyword_id = None
+        for kw_id, kw in list(extension.preferences.items()):
+            if kw == keyword:
+                keyword_id = kw_id
+
+        if keyword_id == "multitran_de_ru":
+            pass
         return RenderResultListAction(items)
 
 if __name__ == '__main__':
