@@ -6,23 +6,20 @@ from ulauncher.api.shared.action.RenderResultListAction import RenderResultListA
 from ulauncher.api.shared.action.HideWindowAction import HideWindowAction
 from ulauncher.search.apps.AppDb import AppDb
 import logging
+from multitran import Mutltitran
 
 from ulauncher.utils.desktop.reader import find_apps_cached
 
 logger = logging.getLogger(__name__)
 
 
+mt = Mutltitran()
 
 class DemoExtension(Extension):
 
     def __init__(self):
         super(DemoExtension, self).__init__()
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
-
-        for app in find_apps_cached():
-            AppDb.get_instance().put_app(app)
-        logger.info(list(find_apps_cached()))
-
 
 class KeywordQueryEventListener(EventListener):
 
@@ -38,7 +35,14 @@ class KeywordQueryEventListener(EventListener):
                 keyword_id = kw_id
 
         if keyword_id == "multitran_de_ru":
-            pass
+            response = mt.get_translations("DE", "RU", query.strip())
+            for t in response['translations']:
+                translation = t['translation']
+            items.append(
+                ExtensionResultItem(
+                    icon='images/icon.png',
+                    name=translation,
+                    on_enter=response['url']))
         return RenderResultListAction(items)
 
 if __name__ == '__main__':

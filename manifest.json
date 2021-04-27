@@ -5,7 +5,7 @@
   "developer_name": "Denys Chernyshov",
   "icon": "images/icon.png",
   "options": {
-    "query_debounce": 0.05
+    "query_debounce": 1
   },
   "preferences": [
     {
